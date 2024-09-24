@@ -20,9 +20,11 @@ load_dotenv("C:/Python/Environmental variables/.env")
 dm = DataManager()
 fd = FlightData()
 
-sheet_data = dm.get_sheet_data()["prices"]
-for row in sheet_data:
-    city_name = row["city"]
-    id = row["id"]
-    iata = fd.get_iata(city=city_name)
-    dm.put_iata(row=id,data=iata)
+# This portion of code is used to generate and store iata codes in google sheet-----------------------------------------
+# sheet_data = dm.get_sheet_data()["prices"]
+# for row in sheet_data:
+#     city_name = row["city"]
+#     id = row["id"]
+#     iata = fd.get_iata(city=city_name)
+#     dm.put_iata(row=id,data=iata)
+#---------------------------------------------------------------------------------------------------------------------
