@@ -1,4 +1,6 @@
 import os
+from http.client import responses
+
 import requests
 from dotenv import load_dotenv
 load_dotenv("C:/Python/Environmental variables/.env")
@@ -6,9 +8,14 @@ class DataManager:
     def __init__(self):
         self.url = "https://api.sheety.co/f2cc6990c1585bc16e71a2d26e7a6fbf/flightDeals/prices"
 
-    def get_data(self):
-        response = requests.get(url=self.url)
-        return response.json()
+    def get_sheet_data(self):
+        responses_row = requests.get(url = self.url)
+        return responses_row.json()
+
+    # def get_iata_loc(self,row):
+    #     response = requests.get(url=f"{self.url}/{row}")
+    #     data = response.json()
+    #     return data["price"]["iataCode"]
 
     def put_iata(self,row,data):
         header = {

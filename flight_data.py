@@ -8,15 +8,17 @@ class FlightData:
     def __init__(self):
         self.url = "https://test.api.amadeus.com/v1/reference-data/locations/cities"
 
-    def get_iata(self):
+    def get_iata(self,city):
         parameters = {
-            "keyword":"Paris"
+            "keyword":city,
+            "max":1
         }
         header = {
-            "Authentication":f"Bearer {os.getenv('amadeus_key')}"
+            "Authorization":f"Bearer {os.getenv('amadeus_access_token')}"
         }
         response = requests.get(url=self.url,params=parameters,headers=header)
-        print(response.text)
+        data = response.json()
+        return data["data"][0]["iataCode"]
+
 
 df = FlightData()
-df.get_iata()
