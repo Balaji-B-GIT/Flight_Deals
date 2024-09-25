@@ -7,13 +7,13 @@ from dotenv import load_dotenv
 load_dotenv("C:/Python/Environmental variables/.env")
 
 # This portion of code is used to generate access code--------------------------------------------------------------
-# url = "https://test.api.amadeus.com/v1/security/oauth2/token"
+# token_url = "https://test.api.amadeus.com/v1/security/oauth2/token"
 # parameters = {
 #     "grant_type":'client_credentials',
 #     "client_id":os.getenv("amadeus_key"),
 #     "client_secret":os.getenv("amadeus_secret")
 # }
-# response = requests.post(url = url,data=parameters)
+# response = requests.post(url = token_url,data=parameters)
 # print(response.text)
 # ---------------------------------------------------------------------------------------------------------------------
 

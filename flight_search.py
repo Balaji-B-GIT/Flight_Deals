@@ -2,25 +2,36 @@ import requests
 import os
 from dotenv import load_dotenv
 load_dotenv("C:/Python/Environmental variables/.env")
+import datetime as dt
+
+
 
 class FlightSearch:
     #This class is responsible for talking to the Flight Search API.
     def __init__(self):
-        self.url = "https://test.api.amadeus.com/v1/shopping/flight-dates"
+        self.url = "https://test.api.amadeus.com/v2/shopping/flight-offers"
 
-    def cheap_price(self,start,end,max_price,date):
+    def cheap_price(self,start,end,departure_date,return_date):
         parameters = {
-            "origin":start,
-            "destination":end,
-            "maxPrice":max_price,
-            "departureDate":date
+            "originLocationCode":start,
+            "destinationLocationCode":end,
+            "departureDate":departure_date,
+            "returnDate":return_date,
+            "adults":1,
+            "nonStop":"true",
+            "currencyCode":"GBP",
         }
         header = {
             "Authorization": f"Bearer {os.getenv('amadeus_access_token')}"
         }
         response = requests.get(url=self.url,params=parameters,headers=header)
-        print(response.text)
+        return response.json()
 
-fs = FlightSearch()
 
-fs.cheap_price(start ="MAD",end="MUC",max_price=1000,date="2024-09-25,2024-12-31")
+    today = dt.datetime.now()
+    for i in range(1):
+        date = today + dt.timedelta(days=i)
+        departure_date = today.strftime("%Y-%m-%d")
+        return_date = date.strftime("%Y-%m-%d")
+        cheap_price()
+
