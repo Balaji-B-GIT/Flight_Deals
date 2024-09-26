@@ -11,10 +11,6 @@ class DataManager:
         responses_row = requests.get(url = self.url)
         return responses_row.json()
 
-    # def get_iata_loc(self,row):
-    #     response = requests.get(url=f"{self.url}/{row}")
-    #     data = response.json()
-    #     return data["price"]["iataCode"]
 
     def put_iata(self,row,data):
         header = {

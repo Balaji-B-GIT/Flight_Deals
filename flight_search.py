@@ -10,7 +10,6 @@ flight_url ="https://test.api.amadeus.com/v2/shopping/flight-offers"
 token_url ="https://test.api.amadeus.com/v1/security/oauth2/token"
 
 class FlightSearch:
-    #This class is responsible for talking to the Flight Search API.
     def __init__(self):
         self.token = self.generate_token()
 
@@ -43,14 +42,14 @@ class FlightSearch:
             print(f"KeyError: No airport code found for {city}.")
 
 
-    def available_flights(self,origin,destination,departure_date,return_date):
+    def available_flights(self,origin,destination,departure_date,return_date,non_stop):
         parameters = {
             "originLocationCode":origin,
             "destinationLocationCode":destination,
             "departureDate":departure_date,
             "returnDate":return_date,
             "adults":1,
-            "nonStop":"true",
+            "nonStop":non_stop,
             "currencyCode":"INR",
         }
         header = {
