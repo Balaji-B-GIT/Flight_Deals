@@ -1,24 +1,21 @@
-import requests
-import os
-from dotenv import load_dotenv
-load_dotenv("C:/Python/Environmental variables/.env")
-
 class FlightData:
     #This class is responsible for structuring the flight data.
-    def __init__(self):
-        self.url = "https://test.api.amadeus.com/v1/reference-data/locations/cities"
+    def __init__(self,price,origin ,destination, out_date, return_date):
+        self.price = price
+        self.originLocationCode = origin
+        self.destinationLocationCode = destination
+        self.departureDate = out_date
+        self.returnDate = return_date
 
-    def get_iata(self,city):
-        parameters = {
-            "keyword":city,
-            "max":1
-        }
-        header = {
-            "Authorization":f"Bearer {os.getenv('amadeus_access_token')}"
-        }
-        response = requests.get(url=self.url,params=parameters,headers=header)
-        data = response.json()
-        return data["data"][0]["iataCode"]
+def cheapest_flights(data):
+    if data is None or not data['data']:
+        print("No flight data")
+        return FlightData("N/A", "N/A", "N/A", "N/A","N/A")
 
-
-df = FlightData()
+    first_flight = data['data'][0]
+    lowest_price = float(first_flight["price"]["grandTotal"])
+    origin = first_flight["itineraries"][0]["segments"][0]["departure"]["iataCode"]
+    destination = first_flight["itineraries"][0]["segments"][0]["arrival"]["iataCode"]
+    out_date = first_flight["itineraries"][0]["segments"][0]["departure"]["at"].split("T")[0]
+    return_date = first_flight["itineraries"][1]["segments"][0]["departure"]["at"].split("T")[0]
+    return FlightData(lowest_price,origin,destination, out_date, return_date)
