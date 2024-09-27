@@ -51,6 +51,7 @@ class FlightSearch:
             "adults":1,
             "nonStop":non_stop,
             "currencyCode":"INR",
+            "max": 1,
         }
         header = {
             "Authorization": f"Bearer {self.token}"
