@@ -6,12 +6,11 @@ from flight_data import cheapest_flights
 from flight_search import FlightSearch
 from notification_manager import NotificationManager
 from dotenv import load_dotenv
-import datetime as dt
 
 from flight_search import FlightSearch
 
 load_dotenv("C:/Python/Environmental variables/.env")
-MY_LOC = "LON"
+MY_LOC = input("Enter your nearest airport IATA code/Country IATA code(ex:LON) :")
 
 dm = DataManager()
 fs = FlightSearch()
@@ -69,9 +68,10 @@ for destination in sheet_data:
             for user in user_mails:
                 print(f'sending mail to {user["what'sYourFullName?"]}....')
                 mail = user["enterYourEmailAddress"]
-                nm.send_mail(msg_body=f"Low price alert! Only INR {cheapest_flight.price} to fly "
-                                      f"from {cheapest_flight.originLocationCode} to {cheapest_flight.destinationLocationCode}, "
-                                      f"on {cheapest_flight.departureDate} until {cheapest_flight.returnDate}.",
+                nm.send_mail(msg_body=f"Low price alert! Only INR {cheapest_stopover_flight.price} to fly "
+                                      f"from {cheapest_stopover_flight.originLocationCode} to {cheapest_stopover_flight.destinationLocationCode}, "
+                                      f"with {cheapest_stopover_flight.stops}stops "
+                                      f"on {cheapest_stopover_flight.departureDate} until {cheapest_stopover_flight.returnDate}.",
                              user_mail=mail)
 
     elif cheapest_flight.price < destination["lowestPrice"] and cheapest_flight != "N/A":
